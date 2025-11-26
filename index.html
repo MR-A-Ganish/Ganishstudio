@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ganish Studio — Wedding Cards, Albums & Thambulam Bags</title>
+  <meta name="description" content="Ganish Studio — wedding cards, album design, wedding photography and traditional thambulam bags. Contact & location." />
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#000;
+      --gold:#fdbA01;
+      --gold-soft:#fff2b0;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,200,0,0.18);
+      --nav-h: 112px;
+      --container-w: 960px;
+      --ease: 200ms;
+      font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      padding:0;
+      background:var(--bg);
+      color:var(--gold);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display:block; max-width:100%; height:auto; }
+
+    /* Header / Nav */
+    #siteHeader { position: fixed; inset-inline: 0; top: 0; background: rgba(0,0,0,0.66); backdrop-filter: blur(6px); z-index: 9999; border-bottom: 1px solid rgba(255,200,0,0.06); }
+    .nav-wrapper { max-width: 1300px; margin: 0 auto; padding: 10px 18px; display:flex; flex-direction: column; gap:8px; align-items:center; }
+    .brand-row { width:100%; display:flex; align-items:center; justify-content:center; gap:12px; }
+    .brand-link { display:flex; align-items:center; gap:12px; color:inherit; }
+    .brand-logo { width:72px; height:72px; object-fit:cover; border-radius:12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); border:2px solid rgba(255,200,0,0.06); }
+    .brand-text h1 { margin:0; font-size:20px; color: var(--gold); letter-spacing: 0.4px; }
+    .brand-text p.since { margin:2px 0 0 0; font-size:12px; color: var(--gold-soft); text-align:center; }
+
+    .menu-row { width:100%; display:flex; justify-content:center; gap:18px; flex-wrap:wrap; padding-bottom:6px; align-items:center; }
+    .menu-row .menu-item { position:relative; display:inline-flex; align-items:center; gap:8px; padding:6px 2px; }
+    .menu-row a { color: var(--gold); font-weight:500; padding:8px 10px; border-radius:8px; transition: color var(--ease), transform var(--ease); position:relative; display:inline-block; }
+    .menu-row a:hover, .menu-row a:focus { color: var(--gold-soft); transform: translateY(-3px); outline: none; }
+    /* Animated underline */
+    .menu-row a::after {
+      content: "";
+      position: absolute;
+      left: 12%;
+      right: 12%;
+      bottom: 6px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 220ms var(--ease);
+      opacity: 0.0;
+    }
+    .menu-row a:hover::after, .menu-row a:focus::after { transform: scaleX(1); opacity: 1; }
+
+    /* active / current page */
+    .menu-row a[aria-current="page"], .menu-row a.active {
+      color: #fff2b0;
+      font-weight:700;
+    }
+    .menu-row a[aria-current="page"]::after, .menu-row a.active::after {
+      transform: scaleX(1);
+      opacity: 1;
+    }
+
+    /* Dropdown */
+    .dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px;
+      background: rgba(0,0,0,0.95);
+      border-radius: 10px;
+      padding: 8px;
+      display: none;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      border:1px solid rgba(255,200,0,0.06);
+      z-index: 10002;
+    }
+    .dropdown a { display:block; padding:8px 12px; border-radius:8px; color:var(--gold); font-weight:500; }
+    .dropdown a:hover, .dropdown a:focus { color:var(--gold-soft); background:rgba(255,200,0,0.02); transform:none; }
+
+    /* show dropdown on hover/focus */
+    .menu-item.show .dropdown,
+    .menu-item:focus-within .dropdown {
+      display:block;
+      animation: dropdownFade 180ms ease;
+    }
+    @keyframes dropdownFade { from { opacity:0; transform: translateX(-50%) translateY(-6px) } to { opacity:1; transform: translateX(-50%) translateY(0)} }
+
+    /* search button */
+    .icon-btn { background:transparent; border:0; color:var(--gold); font-size:18px; padding:8px; cursor:pointer; border-radius:8px; }
+    .icon-btn:focus { outline:2px solid rgba(255,200,0,0.14); }
+
+    /* Mobile toggle */
+    .mobile-toggle { display:none; background:transparent; border:0; color:var(--gold); font-size:22px; cursor:pointer; padding:6px 10px; }
+    .hamburger { width:26px; height:18px; position:relative; display:inline-block; }
+    .hamburger span { position:absolute; left:0; right:0; height:2px; background:var(--gold); display:block; transition: transform 220ms ease, opacity 180ms ease, top 220ms ease; }
+    .hamburger span:nth-child(1){ top:0; }
+    .hamburger span:nth-child(2){ top:8px; }
+    .hamburger span:nth-child(3){ top:16px; }
+    .mobile-toggle[aria-expanded="true"] .hamburger span:nth-child(1){ top:8px; transform: rotate(45deg); }
+    .mobile-toggle[aria-expanded="true"] .hamburger span:nth-child(2){ opacity:0; }
+    .mobile-toggle[aria-expanded="true"] .hamburger span:nth-child(3){ top:8px; transform: rotate(-45deg); }
+
+    @media (max-width:880px){
+      .menu-row { display:none; }
+      .mobile-toggle { display:inline-block; position:relative; left:auto; right:auto; }
+      .brand-row { justify-content: space-between; padding:0 6px; }
+    }
+
+    /* Mobile overlay (slide-in right) */
+    .mobile-menu { display:none; position:fixed; top:0; right:0; width:320px; max-width:92%; height:100vh; background: rgba(3,3,3,0.98); padding:22px; border-radius:0 0 0 12px; z-index:10001; border-left:1px solid rgba(255,200,0,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.6); transform: translateX(100%); transition: transform 280ms cubic-bezier(.2,.9,.2,1); display:flex; flex-direction:column; gap:12px; }
+    .mobile-menu.open { transform: translateX(0); display:flex; }
+    .mobile-menu .mobile-link { display:block; padding:12px 10px; color:var(--gold); border-bottom:1px solid rgba(255,200,0,0.03); font-weight:600; }
+    .mobile-menu .mobile-link:last-child { border-bottom: none; }
+    .mobile-menu .mobile-sub { padding-left:10px; font-weight:500; color:var(--gold-soft); font-size:14px; }
+
+    /* cursor and particles */
+    .cursor{width:18px;height:18px;border:2px solid var(--gold);border-radius:50%;position:fixed;left:0;top:0;pointer-events:none;transform:translate(-50%,-50%);transition:transform .10s linear,background .10s linear;z-index:99999;box-shadow:0 0 12px rgba(255,190,20,0.75);background:transparent}
+    .cursor-grow{ transform:translate(-50%,-50%) scale(2.7); background:var(--gold); }
+
+    .particles{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+    .particles span{position:absolute;display:block;width:6px;height:6px;border-radius:50%;background:linear-gradient(180deg, rgba(255,210,100,0.95), rgba(255,180,40,0.6));filter:blur(1px);opacity:0.9;will-change:transform,opacity;animation:floatUp 12s linear infinite}
+    @keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-140vh) scale(.36);opacity:0}}
+
+    /* Main content */
+    main{padding:calc(var(--nav-h) + 28px) 20px 80px;min-height:calc(100vh - var(--nav-h));display:flex;justify-content:center}
+    .container{width:95%;max-width:var(--container-w);background:var(--glass);border-radius:18px;padding:36px 28px;text-align:center;border:1px solid var(--glass-border);box-shadow:0 10px 40px rgba(0,0,0,0.5);margin:20px auto}
+    .container h2{margin:8px 0 10px;font-size:24px;color:var(--gold)}
+    .lead{color:var(--gold-soft);margin-bottom:14px}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .outline-btn{padding:10px 28px;border-radius:10px;border:2px solid var(--gold);background:transparent;color:var(--gold);font-weight:600}
+    .outline-btn:hover{background:var(--gold);color:#000;transform:scale(1.03)}
+
+    footer{margin:20px 0;color:var(--gold-soft);text-align:center}
+
+    /* small screens adjustments */
+    @media (max-width:520px){
+      .brand-logo{width:58px;height:58px}
+      .brand-text h1{font-size:16px}
+      .container{padding:22px}
+      .outline-btn{padding:10px 18px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- particles & cursor (kept method) -->
+  <div class="particles" aria-hidden="true">
+    <span style="left:8%; animation-delay:0s; --dur:12s"></span>
+    <span style="left:24%; animation-delay:2s; --dur:13s"></span>
+    <span style="left:40%; animation-delay:1s; --dur:11s"></span>
+    <span style="left:58%; animation-delay:3s; --dur:12s"></span>
+    <span style="left:76%; animation-delay:0.6s; --dur:14s"></span>
+  </div>
+
+  <div class="cursor" id="goldCursor" aria-hidden="true"></div>
+
+  <!-- HEADER: Brand on first line, menu on next line centered -->
+  <header id="siteHeader" role="banner">
+    <div class="nav-wrapper">
+      <!-- top row: brand + mobile toggle -->
+      <div class="brand-row">
+        <a class="brand-link" href="index.html" aria-label="Ganish Studio home">
+          <img class="brand-logo" src="ganish studio.png" alt="Ganish Studio logo">
+          <div class="brand-text">
+            <h1>Ganish Studios and Wedding Cards</h1>
+            <p class="since">SINCE 2005</p>
+          </div>
+        </a>
+
+        <!-- right-side controls for desktop (search + mobile toggle) -->
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button id="searchBtn" class="icon-btn" aria-label="Open search" title="Search">🔍</button>
+
+          <button id="mobileToggle" class="mobile-toggle" aria-expanded="false" aria-controls="mobileMenu" title="Open menu">
+            <span class="hamburger" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- second row: centered menu -->
+      <nav id="desktopMenu" class="menu-row" role="navigation" aria-label="Primary menu">
+        <div class="menu-item"><a href="index.html">Home</a></div>
+
+        <div class="menu-item">
+          <a href="cards.html" id="cardsMenu" aria-haspopup="true" aria-expanded="false">Wedding Cards</a>
+        </div>
+
+        <div class="menu-item"><a href="wedding.html">Wedding Photography</a></div>
+        <div class="menu-item"><a href="album.html">Album Design</a></div>
+        <div class="menu-item"><a href="thambulam.html">Thambulam Bags</a></div>
+      </nav>
+    </div>
+
+    <!-- mobile overlay (slide-in) -->
+    <nav id="mobileMenu" class="mobile-menu" aria-hidden="true" role="navigation" aria-label="Mobile primary menu">
+      <button id="mobileClose" class="icon-btn" aria-label="Close menu" title="Close" style="align-self:flex-end">✕</button>
+      <a class="mobile-link" href="index.html">Home</a>
+
+
+      <a class="mobile-link" href="wedding.html">Wedding Photography</a>
+      <a class="mobile-link" href="album.html">Album Design</a>
+      <a class="mobile-link" href="thambulam.html">Thambulam Bags</a>
+
+      <hr style="border:none;height:1px;background:rgba(255,200,20,0.06);margin:8px 0">
+
+      <a class="mobile-link" href="tel:+919443876751">Call: +91 94438 76751</a>
+      <a class="mobile-link" href="mailto:gbeven74@gmail.com">Email</a>
+    </nav>
+  </header>
+
+  <!-- Main content (example content; replace with each page's content) -->
+  <main>
+    <section class="container" role="main" aria-labelledby="contactHeading">
+      <h2 id="contactHeading">CONTACT</h2>
+      <p class="lead">For bookings, custom invites, album design and thambulam bags — reach out or visit our studio.</p>
+
+      <div class="cta-row" role="group" aria-label="Contact actions">
+        <a class="outline-btn" href="https://maps.app.goo.gl/Ayq7Vz4SQUK5rMux8" rel="noopener" target="_blank">LOCATION</a>
+        <a class="outline-btn" href="tel:+919443876751">CALL NOW: +91 94438 76751</a>
+        <a class="outline-btn" href="mailto:hello@ganishstudio.com?subject=Booking%20Enquiry">EMAIL</a>
+      </div>
+
+      <hr style="border:none;height:2px;background:linear-gradient(90deg,transparent,#ffcc33,transparent);margin:20px 0">
+
+      <p style="color:var(--gold-soft)">Studio hours: <strong>Mon–Sat</strong> • 10:00 AM — 9:00 PM</p>
+      <p style="color:var(--gold-soft)">Services: <a href="cards.html">Wedding Cards</a> • <a href="album.html">Album Design</a> • <a href="thambulam.html">Thambulam Bags</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <span id="year"></span> Ganish Studio — All rights reserved.</p>
+  </footer>
+
+  <!-- SCRIPTS: cursor, particles timing, mobile menu, dropdowns -->
+  <script>
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Cursor: throttled movement + grow on interactive elements
+    (function(){
+      const cursor = document.getElementById('goldCursor');
+      if(!cursor) return;
+      let last = 0;
+      const throttleMs = 10;
+      document.addEventListener('mousemove', (e) => {
+        const now = performance.now();
+        if (now - last < throttleMs) return;
+        last = now;
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top  = e.clientY + 'px';
+      }, {passive:true});
+
+      const addGrow = () => cursor.classList.add('cursor-grow');
+      const removeGrow = () => cursor.classList.remove('cursor-grow');
+
+      document.querySelectorAll('a,button').forEach(el=>{
+        el.addEventListener('mouseenter', addGrow);
+        el.addEventListener('mouseleave', removeGrow);
+      });
+
+      // hide on touch devices
+      window.addEventListener('touchstart', ()=>{ cursor.style.opacity = '0'; }, {passive:true});
+      window.addEventListener('touchend', ()=>{ cursor.style.opacity = '1'; }, {passive:true});
+    })();
+
+    // Particles: set animation durations & slight offsets
+    (function(){
+      document.querySelectorAll('.particles span').forEach((s,i)=>{
+        const dur = s.style.getPropertyValue('--dur') || (11 + (i % 4));
+        s.style.animationDuration = dur + 's';
+        s.style.bottom = (Math.random() * 20 - 10) + 'px';
+        s.style.opacity = (0.78 + Math.random()*0.22).toString();
+      });
+    })();
+
+    // DESKTOP dropdown: accessible hover + keyboard handling
+    (function(){
+      const cardsMenuItem = document.querySelector('.menu-item[data-has-dropdown]');
+      if(!cardsMenuItem) return;
+      const trigger = cardsMenuItem.querySelector('a');
+      const dropdown = cardsMenuItem.querySelector('.dropdown');
+
+      function openDropdown(){
+        cardsMenuItem.classList.add('show');
+        trigger.setAttribute('aria-expanded','true');
+        dropdown.setAttribute('aria-hidden','false');
+      }
+      function closeDropdown(){
+        cardsMenuItem.classList.remove('show');
+        trigger.setAttribute('aria-expanded','false');
+        dropdown.setAttribute('aria-hidden','true');
+      }
+
+      // hover (mouse)
+      cardsMenuItem.addEventListener('mouseenter', openDropdown);
+      cardsMenuItem.addEventListener('mouseleave', closeDropdown);
+
+      // keyboard: open on focus, close on Esc
+      trigger.addEventListener('focus', openDropdown);
+      cardsMenuItem.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape') { closeDropdown(); trigger.focus(); }
+      });
+
+      // close when clicking outside
+      document.addEventListener('click', (e) => {
+        if(!cardsMenuItem.contains(e.target)) closeDropdown();
+      });
+    })();
+
+    // MOBILE menu open/close + sublists
+    (function(){
+      const toggle = document.getElementById('mobileToggle');
+      const mobile = document.getElementById('mobileMenu');
+      const closeBtn = document.getElementById('mobileClose');
+      const cardsToggle = document.getElementById('mobileCardsToggle');
+      const cardsSub = document.getElementById('mobileCardsSub');
+
+      function showMenu(show){
+        const willShow = (show === undefined) ? (mobile.classList.contains('open') === false) : !!show;
+        if(willShow){
+          mobile.classList.add('open');
+          mobile.setAttribute('aria-hidden','false');
+          toggle.setAttribute('aria-expanded','true');
+          // trap focus: focus first focusable
+          const first = mobile.querySelector('button, a');
+          if(first) first.focus();
+        } else {
+          mobile.classList.remove('open');
+          mobile.setAttribute('aria-hidden','true');
+          toggle.setAttribute('aria-expanded','false');
+          toggle.focus();
+        }
+      }
+
+      if(toggle){
+        toggle.addEventListener('click', (e)=>{ e.stopPropagation(); showMenu(); });
+      }
+      if(closeBtn){
+        closeBtn.addEventListener('click', ()=> showMenu(false));
+      }
+
+      // clicking any link closes menu (keeps navigation)
+      mobile.querySelectorAll('.mobile-link').forEach(link=>{
+        link.addEventListener('click', ()=> showMenu(false));
+      });
+
+      // toggle Mobile submenu
+      if(cardsToggle && cardsSub){
+        cardsToggle.addEventListener('click', ()=>{
+          const isOpen = cardsSub.style.display === 'block';
+          cardsToggle.setAttribute('aria-expanded', String(!isOpen));
+          cardsSub.style.display = isOpen ? 'none' : 'block';
+        });
+      }
+
+      // close when clicking outside or pressing Esc
+      document.addEventListener('click', (e) => {
+        if(!mobile.classList.contains('open')) return;
+        if(e.target.closest('#mobileMenu')) return;
+        if(e.target.closest('#mobileToggle')) return;
+        showMenu(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && mobile.classList.contains('open')) showMenu(false);
+      });
+    })();
+
+    // Simple search button behavior (demo): opens a prompt (replace with your UI as needed)
+    (function(){
+      const searchBtn = document.getElementById('searchBtn');
+      if(!searchBtn) return;
+      searchBtn.addEventListener('click', ()=>{
+        const q = prompt('Search Ganish Studio (demo): type keywords');
+        if(q) {
+          // For now we just go to search page with q param if you have one
+          // window.location.href = '/search.html?q=' + encodeURIComponent(q);
+          alert('You searched for: ' + q);
+        }
+      });
+    })();
+
+    // Ensure desktop menu links behave normally (safety)
+    (function(){
+      document.querySelectorAll('nav.menu-row a, nav#desktopMenu a').forEach(a=>{
+        a.addEventListener('click', function(){ /* intentionally empty: allow default navigation */ });
+      });
+    })();
+
+    // Highlight the active link based on location (works on file:// or server)
+    (function(){
+      const links = document.querySelectorAll('#desktopMenu a');
+      const path = window.location.pathname.split('/').pop() || 'index.html';
+      links.forEach(a=>{
+        const href = a.getAttribute('href') || '';
+        // compare last segment of href to current path
+        const hrefFile = href.split('/').pop();
+        if(hrefFile && hrefFile === path) {
+          a.classList.add('active');
+          a.setAttribute('aria-current','page');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
